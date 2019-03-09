@@ -1,0 +1,31 @@
+function programHeader(programName, programPath)
+    fid=fopen(programPath,'w');
+    fprintf(fid,'/PROG  %s\r\n', programName);
+    fprintf(fid,'/ATTR\r\n');
+    fprintf(fid,'OWNER		= MNEDITOR;\r\n');
+    fprintf(fid,'COMMENT		= "";\r\n');
+    fprintf(fid,'CREATE		= DATE 01-09-14  TIME 08:21:00;\r\n');
+    fprintf(fid,'MODIFIED	= DATE 01-11-06  TIME 03:48:32;\r\n');
+    fprintf(fid,'FILE_NAME	= ;\r\n');
+    fprintf(fid,'VERSION		= 0;\r\n');
+    fprintf(fid,'LINE_COUNT	= 167;\r\n');
+    fprintf(fid,'MEMORY_SIZE	= 10823;\r\n');
+    fprintf(fid,'PROTECT		= READ_WRITE;\r\n');
+    fprintf(fid,'TCD:  STACK_SIZE	= 0,\r\n');
+    fprintf(fid,'      TASK_PRIORITY	= 50,\r\n');
+    fprintf(fid,'      TIME_SLICE	= 0,\r\n');
+    fprintf(fid,'      BUSY_LAMP_OFF	= 0,\r\n');
+    fprintf(fid,'      ABORT_REQUEST	= 0,\r\n');
+    fprintf(fid,'      PAUSE_REQUEST	= 0;\r\n');
+    fprintf(fid,'DEFAULT_GROUP	= 1,*,*,*,*;\r\n');
+    fprintf(fid,'CONTROL_CODE	= 00000000 00000000;\r\n');
+    fprintf(fid,'/APPL\r\n');
+    fprintf(fid,'\r\n');
+    fprintf(fid,'AUTO_SINGULARITY_HEADER;\r\n');
+    fprintf(fid,'  ENABLE_SINGULARITY_AVOIDANCE   : TRUE;\r\n');
+    fprintf(fid,'\r\n');
+    fprintf(fid,'  AUTOZONE_INTERFERENCE_AVOID;\r\n');
+    fprintf(fid,'    AUTOZONE_ENABLED         : FALSE;\r\n');
+    fprintf(fid,'    AUTOZONE_SCHEDULE_NUMBER : 1;\r\n');
+    fclose(fid);
+end
