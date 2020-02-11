@@ -5,15 +5,24 @@ function [min_distance, path] = dtwK2(x,y,dfcn,x1,y1,dfcn2)
     dist = zeros(numY,numX);
     dist1 = zeros(numY,numX);
     
+    spanx=zeros(1,numX);
+    spanx1=zeros(1,numX);
+    for j=1:numX
+        spanx(j)=dfcn(x(:,j),x(:,1));
+        spanx1(j)=dfcn2(x1(:,j),x1(:,1));
+    end
+    spanxmax=max(spanx);
+    spanx1max=max(spanx1);
+    
     for i=1:numY
         for j=1:numX
-            dist(i,j)=dfcn(y(:,i),x(:,j));
-            dist1(i,j)=dfcn2(y1(:,i),x1(:,j));
+            dist(i,j)=dfcn(y(:,i),x(:,j))/spanxmax;
+            dist1(i,j)=dfcn2(y1(:,i),x1(:,j))/spanx1max;
         end
     end
     
-    dist=reshape(tiedrank(dist(:)),size(dist));
-    dist1=reshape(tiedrank(dist1(:)),size(dist1));
+    %dist=reshape(tiedrank(dist(:)),size(dist));
+    %dist1=reshape(tiedrank(dist1(:)),size(dist1));
     
     dist = max(cat(3,dist,dist1),[],3);
     

@@ -1,2 +1,6 @@
 
 *.asv
+
+externalLibs/others/ExportFig/.ignore/
+
+externalLibs/mine/__pycache__/

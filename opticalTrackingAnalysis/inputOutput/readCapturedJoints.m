@@ -12,4 +12,10 @@ function [time,joints]=readCapturedJoints(file,tickDefinition)
     %note that matlab and fanuc compute joint angles differently, that is
     %why this is needed.
     joints(:,3)=joints(:,3)+joints(:,2);
+    
+    %add an additional 0.2 seconds of stationary data - this can be used for
+    %cross correlation
+    numSamplesIn1Sec=round(0.2/(tickDefinition*2),0);
+    joints(end+1:end+numSamplesIn1Sec,:)=repmat(joints(end,:),numSamplesIn1Sec,1);
+    time(end+1:end+numSamplesIn1Sec)=time(end)+tickDefinition*(2:2:2*numSamplesIn1Sec);
 end

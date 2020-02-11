@@ -3,7 +3,7 @@ function [newFramesT,figures]=augmentTrajectory(frames,period,amendNumPoints,int
     %frame in order to avoid singularities with the rotation vector
     framesT=frames;
     for n=1:size(frames,3)
-        framesT(1:3,1:3,n)=squeeze(frames(1:3,1:3,1))'*squeeze(framesT(1:3,1:3,n));
+        framesT(1:3,1:3,n)=squeeze(framesT(1:3,1:3,n))*squeeze(frames(1:3,1:3,1))';
     end
     time=((1:size(framesT,3))-1)*period;
     kineStruct=calcKinematics(time,framesT);
@@ -70,15 +70,16 @@ function [newFramesT,figures]=augmentTrajectory(frames,period,amendNumPoints,int
     quatSeqAll=weldSeq(quatSeqPre,quatSeq,quatSeqPost);
 
     %smooth and compute smoothed linear velocity and acceleration
+    smoothDataFunction = @(x) smoothdata(x,'gaussian',gaussInterval);
     newTime=((1:size(posSeq,1))-1)*period;
-    posSeqSmooth=smoothData(posSeq,gaussInterval);
+    posSeqSmooth=smoothData(posSeq,smoothDataFunction);
     velSeqSmooth=velocity(newTime,posSeqSmooth);
     accSeqSmooth=velocity(newTime,velSeqSmooth);
 
     %smooth and compute smoothed angular velocity and acceleration
     axangSeq=quat2axang(quatSeqAll);
     rotVecSeq=axangSeq(:,1:3).*axangSeq(:,4);
-    rotVecSeqSmooth=smoothData(rotVecSeq,gaussInterval);
+    rotVecSeqSmooth=smoothData(rotVecSeq,smoothDataFunction);
     rotVecSeqSmoothTheta=sqrt(dot(rotVecSeqSmooth,rotVecSeqSmooth,2));
     rotVecSeqSmoothAxis=rotVecSeqSmooth./rotVecSeqSmoothTheta;
     %generate frames from the rotation vectors in order to compute
@@ -91,7 +92,7 @@ function [newFramesT,figures]=augmentTrajectory(frames,period,amendNumPoints,int
     newFramesT=newFrames;
     %add back initial orientation
     for n=1:size(newFrames,3)
-        newFramesT(1:3,1:3,n)=squeeze(frames(1:3,1:3,1))*squeeze(newFramesT(1:3,1:3,n));
+        newFramesT(1:3,1:3,n)=squeeze(newFramesT(1:3,1:3,n))*squeeze(frames(1:3,1:3,1));
     end
     figures=gobjects(0);
 
