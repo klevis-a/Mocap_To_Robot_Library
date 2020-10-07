@@ -8,6 +8,8 @@ function captureInfo=embellishRepeatCapture(ndiHSFrames, initCaptureInfo, robotI
     %determine the transformation matrix that will allow us to transform from
     %optotrak to robot coordinate systems
     captureInfo.transformations.ndi.OtoR=initCaptureInfo.transformations.ndi.OtoR;
+    captureInfo.humerusLength=initCaptureInfo.humerusLength;
+    captureInfo.thoraxOrientation=initCaptureInfo.thoraxOrientation;
     
     %read the original frames (before smoothing)
     captureInfo.startEndIndices = initCaptureInfo.startEndIndices;

@@ -1,5 +1,5 @@
 function captureInfo=calcAllBodyKinematics(captureInfo)
-    %calculate angular velocity and acceleration with respect to body
+    %calculate linear, angular velocity and acceleration with respect to body
     for i=1:length(captureInfo.sources)
         currentSource=captureInfo.sources{i};
         for k=1:length(captureInfo.rigidBodies)
@@ -18,6 +18,20 @@ function captureInfo=calcAllBodyKinematics(captureInfo)
                     captureInfo.(currentSource).lab.(currentRB).pose.frames);
                 captureInfo.(currentSource).body.(currentRB).acceleration.angular.scalar=...
                     vector3ToScalar(captureInfo.(currentSource).body.(currentRB).acceleration.angular.vector);
+                
+                %linear velocity
+                captureInfo.(currentSource).body.(currentRB).velocity.linear.vector=...
+                    calcBodyKinematics(captureInfo.(currentSource).lab.(currentRB).velocity.linear.vector,...
+                    captureInfo.(currentSource).lab.(currentRB).pose.frames);
+                captureInfo.(currentSource).body.(currentRB).velocity.linear.scalar=...
+                    vector3ToScalar(captureInfo.(currentSource).body.(currentRB).velocity.linear.vector);
+
+                %linear acceleration
+                captureInfo.(currentSource).body.(currentRB).acceleration.linear.vector=...
+                    calcBodyKinematics(captureInfo.(currentSource).lab.(currentRB).acceleration.linear.vector,...
+                    captureInfo.(currentSource).lab.(currentRB).pose.frames);
+                captureInfo.(currentSource).body.(currentRB).acceleration.linear.scalar=...
+                    vector3ToScalar(captureInfo.(currentSource).body.(currentRB).acceleration.linear.vector);
 
                 %to mm and deg
                 captureInfo.(currentSource).body.(currentRB).mmdeg.velocity.angular.vector=...
@@ -28,6 +42,15 @@ function captureInfo=calcAllBodyKinematics(captureInfo)
                     rad2deg(captureInfo.(currentSource).body.(currentRB).velocity.angular.scalar);
                 captureInfo.(currentSource).body.(currentRB).mmdeg.acceleration.angular.scalar=...
                     rad2deg(captureInfo.(currentSource).body.(currentRB).acceleration.angular.scalar);
+                
+                captureInfo.(currentSource).body.(currentRB).mmdeg.velocity.linear.vector=...
+                    rad2deg(captureInfo.(currentSource).body.(currentRB).velocity.linear.vector);
+                captureInfo.(currentSource).body.(currentRB).mmdeg.acceleration.linear.vector=...
+                    rad2deg(captureInfo.(currentSource).body.(currentRB).acceleration.linear.vector);
+                captureInfo.(currentSource).body.(currentRB).mmdeg.velocity.linear.scalar=...
+                    rad2deg(captureInfo.(currentSource).body.(currentRB).velocity.linear.scalar);
+                captureInfo.(currentSource).body.(currentRB).mmdeg.acceleration.linear.scalar=...
+                    rad2deg(captureInfo.(currentSource).body.(currentRB).acceleration.linear.scalar);
             end
         end
     end

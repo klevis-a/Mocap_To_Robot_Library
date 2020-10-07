@@ -42,6 +42,6 @@ function captureInfo=readAndProcessCapture(samplingPeriods,robotI,postAnalysisDa
     %calculate kinematics for all current sources and coordinate sytems
     kinOpts.zeroRot=1;
     captureInfo=calcAllKinematics(captureInfo,captureInfo.sources,captureInfo.referenceCS,captureInfo.rigidBodies,kinOpts);
-    
     captureInfo=calcAllBodyKinematics(captureInfo);
+    captureInfo.kinetics=calcAllKinetics(captureInfo);
 end

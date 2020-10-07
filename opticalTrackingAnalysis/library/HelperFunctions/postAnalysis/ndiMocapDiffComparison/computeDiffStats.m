@@ -33,6 +33,15 @@ function [diffStruct,spanStruct]=computeDiffStats(spanStruct,vecDiff,scalarDiff,
         %we computed the max between the endpoints so renormalize the index
         %so it counts from the actual beginning of the capture
         diffStruct.maxI(1,1)=diffStruct.maxI(1,1)+endPts(1)-1;
+        
+        [~,topMaxMocapI]=findpeaks(abs(spanScalar(endPts(1):endPts(2))), 'SortStr','descend','MinPeakDistance',10,'MinPeakProminence',1,'MinPeakWidth',5);
+        if length(topMaxMocapI)<5
+            topMaxMocapPeakIdx=rectifyVectorLength(topMaxMocapI',5,@ones)';
+        else
+            topMaxMocapPeakIdx=topMaxMocapI(1:5);
+        end
+        diffStruct.topMaxMocapPeakIdx(:,1) = topMaxMocapPeakIdx+endPts(1)-1;
+        diffStruct.diffAtPeaks(:,1) = abs(scalarDiff(diffStruct.topMaxMocapPeakIdx(:,1)));
     end
     
     if spanScalar==0
@@ -62,5 +71,14 @@ function [diffStruct,spanStruct]=computeDiffStats(spanStruct,vecDiff,scalarDiff,
         %so it counts from the actual beginning of the capture
         diffStruct.maxI(1,n+1)=diffStruct.maxI(1,n+1)+endPts(1)-1;
         spanStruct.span(n+1)=max(spanVec(endPts(1):endPts(2),n))-min(spanVec(endPts(1):endPts(2),n));
+        
+        [~,topMaxMocapI]=findpeaks(abs(spanVec(endPts(1):endPts(2),n)), 'SortStr','descend','MinPeakDistance',10,'MinPeakProminence',1,'MinPeakWidth',5);
+        if length(topMaxMocapI)<5
+            topMaxMocapPeakIdx=rectifyVectorLength(topMaxMocapI',5,@ones)';
+        else
+            topMaxMocapPeakIdx=topMaxMocapI(1:5);
+        end
+        diffStruct.topMaxMocapPeakIdx(:,n+1) = topMaxMocapPeakIdx+endPts(1)-1;
+        diffStruct.diffAtPeaks(:,n+1) = abs(vecDiff(diffStruct.topMaxMocapPeakIdx(:,n+1),n));
     end
 end

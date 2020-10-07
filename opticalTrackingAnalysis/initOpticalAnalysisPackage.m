@@ -14,6 +14,7 @@ function initOpticalAnalysisPackage()
     addpath(fullfile(path,'library','HelperFunctions','processCapture'));
     addpath(fullfile(path,'library','HelperFunctions','processCapture','additionalCoordinateSystems'));
     addpath(fullfile(path,'library','HelperFunctions','processCapture','kinematics'));
+    addpath(fullfile(path,'library','HelperFunctions','processCapture','kinetics'));
     addpath(fullfile(path,'library','HelperFunctions','postAnalysis'));
     addpath(fullfile(path,'library','HelperFunctions','postAnalysis','base'));
     addpath(fullfile(path,'library','HelperFunctions','postAnalysis','graphing'));

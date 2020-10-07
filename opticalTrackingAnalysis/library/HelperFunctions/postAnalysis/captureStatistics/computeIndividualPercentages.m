@@ -13,6 +13,7 @@ function fileStats=computeIndividualPercentages(fileStats,statsPath,cs,rb)
     perDiffStruct.topMax=(diffStruct.topMax./repelem(spanStruct.span,5,1))*100;
     perDiffStruct.vector=(diffStruct.vector./spanStruct.span(2:4))*100;
     perDiffStruct.scalar=(diffStruct.scalar/spanStruct.span(1))*100;
+    perDiffStruct.diffAtPeaks=(diffStruct.diffAtPeaks./repelem(spanStruct.span,5,1))*100;
     newPath=[{'percentage'}, statsPath{2:end}, {cs}, {rb}];
     fileStats.diff=setfield(fileStats.diff,newPath{:},perDiffStruct);
 end

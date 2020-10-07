@@ -17,5 +17,7 @@ function folderStats=transferFileStatsToSummary(folderStats,fileStats,measure,cs
     folderStatsStruct.maxI(fileNum,:)=[fileStatsStruct.maxI(1,:) fileStatsStruct.maxI(2,:)];
     folderStatsStruct.xcorr(fileNum,:)=fileStatsStruct.xcorr;
     folderStatsStruct.span(fileNum,:)=mocapStruct.span;
+    folderStatsStruct.topMaxMocapPeakIdx(fileNum,:)=fileStatsStruct.topMaxMocapPeakIdx(:);
+    folderStatsStruct.diffAtPeaks(fileNum,:)=fileStatsStruct.diffAtPeaks(:);
     folderStats=setfield(folderStats,measure{:},folderStatsStruct);
 end

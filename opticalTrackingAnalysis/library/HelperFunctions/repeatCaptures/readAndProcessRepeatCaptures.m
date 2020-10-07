@@ -39,4 +39,6 @@ function [captureInfoInit,captureInfoAvg]=readAndProcessRepeatCaptures(samplingP
     captureInfoAvg=calcAllKinematics(captureInfoAvg,captureInfoAvg.sources,captureInfoAvg.referenceCS,captureInfoAvg.rigidBodies,kinOpts);
     captureInfoInit=calcAllBodyKinematics(captureInfoInit);
     captureInfoAvg=calcAllBodyKinematics(captureInfoAvg);
+    captureInfoInit.kinetics=calcAllKinetics(captureInfoInit);
+    captureInfoAvg.kinetics=calcAllKinetics(captureInfoAvg);
 end

@@ -26,7 +26,9 @@ function captureInfo=readCapture(captureInfo,captureFiles,samplingPeriods,robotI
     captureInfo.transformations.ndi.OtoR=optoToRobot(captureFiles.transformFile);
     
     %read the original frames (before smoothing)
-    [proximal,orientation,~,startEndIndices,~]=readV3DExport(captureFiles.c3dFile,samplingPeriods.mocapSamplingPeriod);
+    [proximal,orientation,humerusLength,startEndIndices,thoraxOrientation]=readV3DExport(captureFiles.c3dFile,samplingPeriods.mocapSamplingPeriod);
+    captureInfo.thoraxOrientation=thoraxOrientation;
+    captureInfo.humerusLength = humerusLength;
     captureInfo.startEndIndices=startEndIndices;
     captureInfo.mocapO.lab.bone.pose.frames=normalizeFrameDisplacements(createFrames(proximal(startEndIndices(1):startEndIndices(2),:),...
         orientation(:,:,startEndIndices(1):startEndIndices(2))));

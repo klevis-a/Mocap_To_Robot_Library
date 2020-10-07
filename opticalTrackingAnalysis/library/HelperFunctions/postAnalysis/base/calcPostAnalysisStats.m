@@ -23,6 +23,9 @@ function folderStats=calcPostAnalysisStats(folderStats,measure)
     statsStruct.stats.topMax(1,:)=mean(statsStruct.topMax,1);
     statsStruct.stats.topMax(2,:)=median(statsStruct.topMax,1);
     statsStruct.stats.topMax(3,:)=std(statsStruct.topMax,0,1);
+    statsStruct.stats.diffAtPeaks(1,:)=mean(statsStruct.diffAtPeaks,1);
+    statsStruct.stats.diffAtPeaks(2,:)=median(statsStruct.diffAtPeaks,1);
+    statsStruct.stats.diffAtPeaks(3,:)=std(statsStruct.diffAtPeaks,0,1);
     
     statsStruct.percentage.max=(statsStruct.max./statsStruct.span)*100;
     statsStruct.percentage.mae=(statsStruct.mae./statsStruct.span)*100;
@@ -32,6 +35,7 @@ function folderStats=calcPostAnalysisStats(folderStats,measure)
     statsStruct.percentage.std=(statsStruct.std./statsStruct.span)*100;
     statsStruct.percentage.mad=(statsStruct.mad./statsStruct.span)*100;
     statsStruct.percentage.topMax=(statsStruct.topMax./repelem(statsStruct.span,1,[5 5 5 5]))*100;
+    statsStruct.percentage.diffAtPeaks=(statsStruct.diffAtPeaks./repelem(statsStruct.span,1,[5 5 5 5]))*100;
     
     statsStruct.percentage.stats.max(1,:)=mean(statsStruct.percentage.max,1);
     statsStruct.percentage.stats.max(2,:)=median(statsStruct.percentage.max,1);
@@ -55,6 +59,9 @@ function folderStats=calcPostAnalysisStats(folderStats,measure)
     statsStruct.percentage.stats.topMax(1,:)=mean(statsStruct.percentage.topMax,1);
     statsStruct.percentage.stats.topMax(2,:)=median(statsStruct.percentage.topMax,1);
     statsStruct.percentage.stats.topMax(3,:)=std(statsStruct.percentage.topMax,0,1);
+    statsStruct.percentage.stats.diffAtPeaks(1,:)=mean(statsStruct.percentage.diffAtPeaks,1);
+    statsStruct.percentage.stats.diffAtPeaks(2,:)=median(statsStruct.percentage.diffAtPeaks,1);
+    statsStruct.percentage.stats.diffAtPeaks(3,:)=std(statsStruct.percentage.diffAtPeaks,0,1);
     
     statsStruct.stats.span(1,:)=mean(statsStruct.span,1);
     statsStruct.stats.span(2,:)=median(statsStruct.span,1);
